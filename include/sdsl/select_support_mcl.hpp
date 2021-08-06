@@ -371,17 +371,22 @@ inline auto select_support_mcl<t_b,t_pat_len>::select(size_type i)const -> size_
     size_type sb_idx = i>>12;   // i/4096
     size_type offset = i&0xFFF; // i%4096
     if (m_longsuperblock!=nullptr and !m_longsuperblock[sb_idx].empty()) {
-        return m_longsuperblock[sb_idx][offset];
+        // accessing a const int_vector is faster because it uses the more efficient const[] operator
+        return static_cast<const int_vector<0>&>(m_longsuperblock[sb_idx])[offset];
     } else {
         if ((offset&0x3F)==0) {
             assert(sb_idx < m_superblock.size());
             assert((offset>>6) < m_miniblock[sb_idx].size());
-            return m_superblock[sb_idx] + m_miniblock[sb_idx][offset>>6/*/64*/];
+            // accessing a const int_vector is faster because it uses the more efficient const[] operator
+            return static_cast<const int_vector<0>&>(m_superblock)[sb_idx]
+                    + static_cast<const int_vector<0>&>(m_miniblock[sb_idx])[offset>>6/*/64*/];
         } else {
             i = i-(sb_idx<<12)-((offset>>6)<<6);
             // now i > 0 and i <= 64
             assert(i > 0);
-            size_type pos = m_superblock[sb_idx] + m_miniblock[sb_idx][offset>>6] + 1;
+            // accessing a const int_vector is faster because it uses the more efficient const[] operator
+            size_type pos = static_cast<const int_vector<0>&>(m_superblock)[sb_idx]
+                    + static_cast<const int_vector<0>&>(m_miniblock[sb_idx])[offset>>6] + 1;
 
             // now pos is the position from where we search for the ith argument
             size_type word_pos = pos>>6;
