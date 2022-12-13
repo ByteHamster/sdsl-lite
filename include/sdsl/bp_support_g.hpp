@@ -640,6 +640,18 @@ class bp_support_g
             assert(m_size == bp->size());
             read_member(m_blocks, in);
         }
+
+        size_t bit_size() {
+            return m_rank_bp.bit_size()
+                    + m_select_bp.bits_used()
+                    + m_nnd.bit_size()
+                    + m_pioneer_bp.bit_size()
+                    + m_rank_pioneer_bp.bit_size()
+                    + m_nnd2.bit_size()
+                    + m_match.bit_size()
+                    + m_enclose.bit_size()
+                    + m_range_max_match.bit_size();
+        }
 };
 
 }// end namespace

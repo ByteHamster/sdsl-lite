@@ -74,6 +74,14 @@ class rmq_support_sparse_table
         typedef typename t_rac::size_type size_type;
         typedef typename t_rac::size_type value_type;
 
+        size_t bit_size() {
+            size_t size = m_table.size() * 8 * sizeof(int_vector<>);
+            for (int_vector<> v : m_table) {
+                size += v.bit_size();
+            }
+            return size;
+        }
+
         rmq_support_sparse_table(const t_rac* v=nullptr):m_v(v), m_k(0)
         {
             if (m_v == nullptr)

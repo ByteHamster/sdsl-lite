@@ -261,6 +261,13 @@ class nearest_neighbour_dictionary
             m_contains_abs_sample.load(in);
             m_rank_contains_abs_sample.load(in, &m_contains_abs_sample);
         }
+
+        size_t bit_size() {
+            return m_abs_samples.bit_size()
+                + m_differences.bit_size()
+                + m_contains_abs_sample.bit_size()
+                + m_rank_contains_abs_sample.bit_size();
+        }
 };
 
 

@@ -163,6 +163,10 @@ class rank_support_v5 : public rank_support
                 m_basic_block.swap(rs.m_basic_block);
             }
         }
+
+        size_t bit_size() {
+            return m_basic_block.bit_size();
+        }
 };
 
 }// end namespace sds
