@@ -77,6 +77,10 @@ class select_support_scan : public select_support
             return *this;
         }
         void swap(select_support_scan<t_b, t_pat_len>&) {}
+
+        size_t bits_used() {
+            return 0;
+        }
 };
 
 template<uint8_t t_b, uint8_t t_pat_len>

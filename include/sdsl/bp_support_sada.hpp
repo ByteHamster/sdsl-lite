@@ -945,6 +945,13 @@ class bp_support_sada
             m_sml_block_min_max.load(in);
             m_med_block_min_max.load(in);
         }
+
+        size_t bit_size() {
+            return m_bp_rank.bit_size()
+                + m_bp_select.bits_used()
+                + m_sml_block_min_max.bit_size()
+                + m_med_block_min_max.bit_size();
+        }
 };
 
 }// end namespace

@@ -552,6 +552,15 @@ class bp_support_gg
                 m_pioneer_bp_support->load(in, &m_pioneer_bp);
             }
         }
+
+        size_t bit_size() {
+            return m_rank_bp.bit_size()
+                + m_select_bp.bits_used()
+                + m_nnd.bit_size()
+                + m_pioneer_bp.bit_size()
+                + (m_pioneer_bp_support == nullptr ? 0 :
+                    (m_pioneer_bp_support->bit_size() + 8 * sizeof(*m_pioneer_bp_support)));
+        }
 };
 
 }// end namespace
